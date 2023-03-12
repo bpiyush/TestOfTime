@@ -1,0 +1,36 @@
+slurm_config: big
+task_type: local_predict
+dataset:
+  split: test
+  video_processor: TEMPOVideoProcessor
+  aligner: DSAligner
+  bert_name: bert-base-uncased
+  # CHANGED
+  meta_processor: TEMPOMetaProcessor
+  # CHANGED
+  test_path: /var/scratch/pbagad/datasets/TEMPO/Test-of-Time-splits/tempoTL+didemo_val-temporal.csv
+  # CHANGED
+  vfeat_dir: /var/scratch/pbagad/datasets/DiDeMo/feat/feat_how2_s3d
+  # CHANGED
+  text_processor: TEMPOTextProcessor
+  num_iso_layer: 12
+  max_video_len: 32
+  max_len: 96
+fairseq:
+  dataset:
+    batch_size: 256
+    valid_subset: test
+    num_workers: 2
+  common_eval:
+    path: /var/scratch/pbagad/projects/Test-of-Time-dev/external/requirements/fairseq/runs/retri/videoclip/checkpoint_best.pt
+model:
+  model_cls: MMFusionSeparate
+  mm_encoder_cls: null
+  video_encoder_cls: MMBertForEncoder
+  text_encoder_cls: BertModel
+  num_hidden_video_layers: 6
+eval:
+  # CHANGED
+  save_path: /var/scratch/pbagad/projects/Test-of-Time-dev/runs/retri/videoclip/tempo_zs/eval
+metric: RetrievalMetric
+predictor: RetrievalPredictor
