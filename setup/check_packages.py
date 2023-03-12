@@ -5,6 +5,8 @@ packages = [
     "torchvision",
     "torchaudio",
     "transformers",
+    "pytorch_lightning",
+    "wandb"
 ]
 
 print("-" * 80)

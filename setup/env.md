@@ -15,10 +15,9 @@ Install the required packages:
 conda activate testoftime
 ```
 
-1. Install PyTorch 1.9.0 with CUDA 11.1 support:
+1. Install PyTorch 1.12.1 with CUDA 11.1 support:
 
 ```sh
-# pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html
 pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
 ```
 Depending on your CUDA version, you may have to install this differently. See [here](https://pytorch.org/get-started/previous-versions/) for more details.
@@ -55,7 +54,7 @@ export PYTHONPATH=$PWD:$PYTHONPATH
     ```
 
 
-2. Install the rest of the required packages:
+2. Install the rest of the required packages (in this order):
 
 ```sh
 pip install ipdb
@@ -63,6 +62,8 @@ pip install transformers==3.4
 pip install protobuf==3.20.0
 pip install omegaconf==2.0.6
 pip install termcolor==2.2.0
+pip install pytorch_lightning==1.7.6
+pip install wandb==0.13.3
 ```
 
 3. Check that the installation was successful:
