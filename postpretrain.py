@@ -27,35 +27,26 @@ def check_args(args):
     if args.only_train:
         args.only_eval = False
     
-    if not args.only_eval:
-        assert args.split is None, \
-            "No need to specify --split for training. Only useful for evaluation."
-        args.split = "train"
-    
     if args.dataset == "synthetic":
-        assert args.split == "test", \
-            f"Not a valid split(={args.split}) for synthetic dataset."\
+        assert args.eval_split == "test", \
+            f"Not a valid split(={args.eval_split}) for synthetic dataset."\
     
-    # if args.split == "train":
-    #     assert args.subset is None, \
-    #         "--subset should be None for training."
-    
-    if args.dataset == "synthetic" and args.split == "test":
-        assert args.subset in ["v2.0"], \
-            f"Not a valid subset(={args.subset}) for synthetic dataset."\
+    if args.dataset == "synthetic" and args.eval_split == "test":
+        assert args.eval_subset in ["v2.0"], \
+            f"Not a valid subset(={args.eval_subset}) for synthetic dataset."\
                 "Only --subset v2.0 is supported."
     
-    if args.dataset == "tempo" and args.split in ["val", "test"]:
-        assert args.subset in ["temporal_1k"], \
-            f"Not a valid subset(={args.subset}) for tempo dataset."\
+    if args.dataset == "tempo" and args.eval_split in ["val", "test"]:
+        assert args.eval_subset in ["temporal_1k"], \
+            f"Not a valid subset(={args.eval_subset}) for tempo dataset."\
                 "Only --subset temporal_1k is supported."
-    
+
     if args.gpus is None:
         if torch.cuda.is_available():
             args.gpus = torch.cuda.device_count()
         else:
             args.gpus = None
-    
+
     return args
     
 
@@ -197,11 +188,12 @@ if __name__ == "__main__":
         "--data_root", type=str, required=True,
     )
     parser.add_argument(
-        "--split", type=str, default=None,
-        help="Split name", choices=["train", "val", "test"],
+        "--eval_split", type=str, default="val",
+        help="Split name for validation dataset", choices=["val", "test"],
     )
     parser.add_argument(
-        "--subset", type=str, default=None,
+        "--eval_subset", type=str, default=None,
+        help="Subset name for validation dataset",
     )
 
     # Optimization and other args
@@ -261,10 +253,11 @@ if __name__ == "__main__":
     if not args.only_eval:
         print_update(">>> Loading train set")
         # 1.A. Load train set (only if not only_eval)
-        dataset_load_args.update(dict(mode="train"))
+        dataset_load_args.update(dict(mode="train", subset=None))
         train_dataset = dataset_load_function(**dataset_load_args)
     # 1.B. Load val set
-    dataset_load_args.update(dict(mode=args.split, subset=args.subset))
+    print_update(">>> Loading validation set")
+    dataset_load_args.update(dict(mode=args.eval_split, subset=args.eval_subset))
     valid_dataset = dataset_load_function(**dataset_load_args)
     
     if args.debug:
@@ -290,6 +283,7 @@ if __name__ == "__main__":
 
 
     # 2. Load the model
+    print_update(">>> Loading model")
     # 2.A. Load the base VideoCLIP model
     config, model = load_videoclip_model(
         cfg_path=args.config,
@@ -303,6 +297,7 @@ if __name__ == "__main__":
 
 
     # 3. Run the experiment (train/eval)
+    print_update(">>> Setting up experiment")
     # 3.A. Setup logging/other cosmetics
     log = not args.no_wandb
     logger = None
@@ -354,11 +349,13 @@ if __name__ == "__main__":
     
     # 3.E. Run the evaluation (before training)
     if not args.only_train:
+        print_update(">>> Running evaluation")
         trainer.validate(pl_module, dataloaders=valid_dataloader)
     
     # 3.F. Run the training
     if not args.only_eval:
-         trainer.fit(
+        print_update(">>> Running training")
+        trainer.fit(
             model=pl_module,
             train_dataloaders=train_dataloader,
             val_dataloaders=valid_dataloader,

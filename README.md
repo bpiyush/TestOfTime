@@ -6,6 +6,9 @@ Code for our CVPR 2023 [paper](https://arxiv.org/abs/2301.02074) on instilling a
 
 Create a `conda` environment and install packages as described in [`setup/env.md`](setup/env.md).
 
+## Overview
+
+We present <u>T</u>emporal <u>A</u>daptation by <u>C</u>onsistent <u>T</u>ime-ordering (TACT) as a way of making video-language models understand before/after relations in text and connecting them with pair of events in a video stream.
 
 ## Datasets
 
@@ -22,14 +25,23 @@ TODO
 We base our experiments on the VideoCLIP model from FAIR. Instructions in [`setup/env.md`](setup/env.md) include download of relevant checkpoints for VideoCLIP.
 
 ## Checkpoints
+TODO
 
-## Evaluation: Time-awareness
+## Post-pretraining: TACT
+
+* Post-pretraining on TEMPO-TL dataset
+    ```sh
+    python postpretrain.py --dataset tempo --eval_subset temporal_1k --no_wandb --data_root /ssd/pbagad/datasets/ --only_train
+    ```
+    Replace `--data_root` with the path to where all your dataseta are stored. Make sure to change `entity` and `project` arguments in [`postpretrain.py`](postpretrain.py) to log to your own wandb account.
+
+## Evaluation: TACT
 
 #### Evaluate on `TEMPO` dataset
 
 * Pre-trained VideoCLIP
     ```sh
-    python postpretrain.py --dataset tempo --subset temporal_1k --split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/
+    python postpretrain.py --dataset tempo --eval_subset temporal_1k --eval_split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/
     ```
     Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 52% accuracy.
 
@@ -37,7 +49,7 @@ We base our experiments on the VideoCLIP model from FAIR. Instructions in [`setu
     ```sh
     ckpt=/path/to/tact/checkpoint/trained/on/TEMPO/
     # For example, ckpt=test-of-time/1arb5f3m/checkpoints/epoch=27-step=8288.ckpt
-    python postpretrain.py --dataset tempo --subset temporal_1k --split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/ -c $ckpt
+    python postpretrain.py --dataset tempo --eval_subset temporal_1k --eval_split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/ -c $ckpt
     ```
     Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 66% accuracy.
 
@@ -45,25 +57,20 @@ We base our experiments on the VideoCLIP model from FAIR. Instructions in [`setu
 
 * Pre-trained VideoCLIP
     ```sh
-    python postpretrain.py --dataset synthetic --subset v2.0 --split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/
+    python postpretrain.py --dataset synthetic --eval_subset v2.0 --eval_split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/
     ```
-    Replace `--data_root` with the path to where all your dataseta are stored.
+    Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 45% accuracy.
 
 * TACT post-pretrained VideoCLIP
     ```sh
     ckpt=/path/to/tact/checkpoint/trained/on/TEMPO/
     # For example, ckpt=test-of-time/1arb5f3m/checkpoints/epoch=27-step=8288.ckpt
-    python postpretrain.py --dataset synthetic --subset v2.0 --split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/ -c $ckpt
+    python postpretrain.py --dataset synthetic --eval_subset v2.0 --eval_split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/ -c $ckpt
     ```
-    Replace `--data_root` with the path to where all your dataseta are stored.
+    Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 78% accuracy.
 
-## Post-pretraining: <u>T</u>emporal <u>A</u>daptation by <u>C</u>onsistent <u>T</u>ime-ordering (TACT)
 
-* Post-pretraining on TEMPO-TL dataset
-    ```sh
-    python postpretrain.py --dataset tempo --subset temporal_1k --no_wandb --data_root /ssd/pbagad/datasets/ --only_train
-    ```
-    Replace `--data_root` with the path to where all your dataseta are stored. Make sure to change `entity` and `project` arguments in [`postpretrain.py`](postpretrain.py) to log to your own wandb account.
-
+## Evaluation: Downstream Tasks
+TODO
 
 **Infra note**: Our code has been run on a single node with 4 GPUs (either NVIDIA RTX A5000 or NVIDIA GeForce 1080). Running it on different infrastructures may cause slight differences in results.
