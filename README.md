@@ -1,4 +1,4 @@
-##  ⏰ [Test of Time: Instilling Video-Language Models with a Sense of Time](https://arxiv.org/abs/2301.02074){:target="_blank"}
+##  ⏰ [Test of Time: Instilling Video-Language Models with a Sense of Time](https://arxiv.org/abs/2301.02074)
 
 Code for our CVPR 2023 [paper](https://arxiv.org/abs/2301.02074) on instilling a sense of time in video-language models.
 
