@@ -2,6 +2,10 @@
 *.pt
 *.pth
 
+# Wandb logging
+wandb/
+checkpoints/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

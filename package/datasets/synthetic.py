@@ -75,10 +75,12 @@ class SyntheticDataset(Dataset):
         split_path,
         feat_dir,
         use_time_bdry=False,
+        print_example=False,
     ):
         super().__init__()
         self.video_dir = video_dir
         self.feat_dir = feat_dir
+        self.print_example = print_example
         
         # load split
         data = pd.read_csv(split_path).to_dict(orient="records")
@@ -234,8 +236,7 @@ class SyntheticDataset(Dataset):
             }
         )
 
-        print_example = True
-        if print_example and index == 0:
+        if self.print_example and index == 0:
             print(":::::: Example instance ::::::")
             print("Text:", outputs["text"])
             print("Text swapped:", outputs["text_swapped"])
@@ -256,7 +257,7 @@ def load_dataset(
         split_dir="ToT-syn-v2.0/splits/",
         mode="val", subset="v2.0",
     ):
-    assert mode in ["val"], f"mode {mode} not supported for SyntheticDataset"
+    assert mode in ["test"], f"mode {mode} not supported for SyntheticDataset"
     video_dir = os.path.join(data_root, video_dir)
     feat_dir = os.path.join(data_root, feat_dir)
     split_dir = os.path.join(data_root, split_dir)
@@ -274,12 +275,15 @@ if __name__ == "__main__":
     from tqdm import tqdm
     from package.utils.log import print_update
 
+    print_update("> TESTING Synthetic DATASET", color="green")
     dataset = load_dataset(
         data_root="/ssd/pbagad/datasets/",
-        mode="val",
-        subset="v2.0"
+        mode="test",
+        subset="v2.0",
+        print_example=True,
     )
 
     instance = dataset[0]
     print(instance.keys())
     print(instance["vfeats"].shape)
+    print_update("< FINISHED TESTING Synthetic DATASET", color="green")

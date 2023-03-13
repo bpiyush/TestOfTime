@@ -70,12 +70,14 @@ class TEMPOTL(Dataset):
             subset_path=None,
             use_time_bdry=True,
             add_metadata=True,
+            print_example=False,
         ):
         super().__init__()
         self.video_dir = video_dir
         self.feat_dir = feat_dir
         self.add_metadata = add_metadata
         self.subset_path = subset_path
+        self.print_example = print_example
         
         print()
         print(colored(">>> Loading data from {}".format(split_path), "yellow"))
@@ -215,6 +217,7 @@ class TEMPOTL(Dataset):
             # filtered_data[i]["temporal_preposition"] = temporal_preposition
             
             desc = d["description"]
+            instance["description"] = desc
             
             # if the sentence starts with the temporal_preposition
             # then need to get the event X and Y carefully
@@ -233,6 +236,8 @@ class TEMPOTL(Dataset):
 
                 event_Y_desc = event_Y_desc.strip()
                 event_X_desc = event_X_desc.strip()
+                # IMPORTANT
+                instance["description"] = f"{event_X_desc} {temporal_preposition} {event_Y_desc}"
 
             else:
                 if temporal_preposition == "before":
@@ -380,9 +385,8 @@ class TEMPOTL(Dataset):
         outputs.update(
             dict(caps_swapped=inputs_swapped["caps"], cmasks_swapped=inputs_swapped["cmasks"])
         )
-        
-        print_example = True
-        if print_example and index == 701:
+
+        if self.print_example and index == 701:
             print(":::::: Example instance ::::::")
             print("Text:", outputs["text"])
             print("Text swapped:", outputs["text_swapped"])
@@ -403,6 +407,7 @@ def load_dataset(
         split_dir="TEMPO/initial_release_data/",
         mode="val", subset="temporal_1k",
     ):
+    assert mode in ["train", "val", "test"]
     video_dir = os.path.join(
         data_root, video_dir,
     )
@@ -417,8 +422,8 @@ def load_dataset(
         split_dir, f"tempoTL+didemo_{mode}.json",
     )
     if mode == "train":
-        assert subset is None, \
-            "subset should be None for training"
+        # assert subset is None, \
+        #     "subset should be None for training"
         subset_path = None
     else:
         assert subset is not None, \
@@ -443,8 +448,9 @@ if __name__ == "__main__":
     print_update("> TESTING TEMPO DATASET", color="green")
 
     data_root = "/ssd/pbagad/datasets/"
-    dataset = load_dataset(data_root=data_root, mode="train", subset=None)
-    dataset = load_dataset(data_root=data_root, mode="val", subset="temporal_1k")
+    dataset = load_dataset(data_root=data_root, mode="train", subset=None, print_example=True)
+    # dataset = load_dataset(data_root=data_root, mode="val", subset="temporal_1k")
+    # dataset = load_dataset(data_root=data_root, mode="test", subset="temporal_1k")
 
     i = 701
     instance = dataset[i]
