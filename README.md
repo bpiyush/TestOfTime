@@ -12,6 +12,8 @@ We present <u>T</u>emporal <u>A</u>daptation by <u>C</u>onsistent <u>T</u>ime-or
 
 ## Datasets
 
+We use a combination of synthetic and real datasets to evaluate our approach. Below, you can find instructions to download and prepare the datasets. Here, we present instructions for our Synthetic dataset and the [TEMPO-TL](https://arxiv.org/abs/1809.01337v1) dataset.
+
 ### Synthetic data
 
 TODO
@@ -19,6 +21,10 @@ TODO
 ### TEMPO-TL dataset
 
 TODO
+
+### Other datasets
+
+In order to evaluate our approach on other datasets, you need to first generate and save S3D video features. Then, create splits, create a dataset object in `package/datasets/`. Please see `package/datasets/tempo.py` for reference.
 
 ## Models
 
@@ -73,4 +79,25 @@ TODO
 ## Evaluation: Downstream Tasks
 TODO
 
-**Infra note**: Our code has been run on a single node with 4 GPUs (either NVIDIA RTX A5000 or NVIDIA GeForce 1080). Running it on different infrastructures may cause slight differences in results.
+## Citation
+
+If you found our work useful or relevant, please consider citing our paper:
+
+```bibtex
+@inproceedings{
+      bagad2023testoftime,
+      title={{T}est of {T}ime: {I}nstilling {V}ideo-{L}anguage {M}odels with a {S}ense of {T}ime},
+      author={Bagad, Piyush and Tapaswi, Makarand and Snoek, Cees G. M.},
+      booktitle={CVPR},
+      year={2023}
+}
+```
+
+## Acknowledgements
+
+We acknowledge support from the [ELLIS Amsterdam Unit](https://ivi.fnwi.uva.nl/ellis/) and the [AMS Scholarhsip](https://www.uva.nl/en/education/fees-and-funding/masters-scholarships-and-loans/faculty-scholarships-science/science.html) to Piyush as a Master's student.
+We also acknowledge all relevent prior work, particularly, [VideoCLIP](https://arxiv.org/abs/2109.14084) and [TEMPO](https://arxiv.org/abs/1809.01337v1), for making their code and data publicly available.
+
+### Additional Notes
+
+> :warning: **Infra note**: Our code has been run on a single node with 4 GPUs (either NVIDIA RTX A5000 or NVIDIA GeForce 1080). Running it on different infrastructures may cause differences in results. However, the trends and inferences should be similar (e.g., post-pretraining helps with temporal ordering task, etc.).
