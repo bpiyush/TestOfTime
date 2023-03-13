@@ -64,6 +64,8 @@ pip install omegaconf==2.0.6
 pip install termcolor==2.2.0
 pip install pytorch_lightning==1.7.6
 pip install wandb==0.13.3
+pip install editdistance==0.6.2
+pip install pandas==1.5.3
 ```
 
 3. Check that the installation was successful:

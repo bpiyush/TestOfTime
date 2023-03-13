@@ -38,7 +38,7 @@ def color(string: str, color_name: str = 'yellow') -> str:
     return colored(string, color_name)
 
 
-def print_update(message: str, width: int = 140, fillchar: str = ":") -> str:
+def print_update(message: str, width: int = 140, fillchar: str = ":", color="yellow") -> str:
     """Prints an update message
     Args:
         message (str): message
@@ -51,7 +51,7 @@ def print_update(message: str, width: int = 140, fillchar: str = ":") -> str:
     width = min(terminal_width, width)
     
     message = message.center(len(message) + 2, " ")
-    print(colored(message.center(width, fillchar), "yellow"))
+    print(colored(message.center(width, fillchar), color))
 
 
 if __name__ == "__main__":
