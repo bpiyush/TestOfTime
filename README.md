@@ -16,9 +16,17 @@ We use a combination of synthetic and real datasets to evaluate our approach. Be
 
 ### Synthetic data
 
-TODO
+We create simple synthetic video-language pairs by stitching together a pair of events (e.g., "a <span style="color:red">red</span> circle appears" and "a <span style="color:yellow">yellow</span> circle appears") with text description connected by *before/after* relations. An example is shown here:
+
+![Synthetic data](media/synthetic-data-v3.gif)
+
+TODO: Add instructions to download.
 
 ### TEMPO-TL dataset
+
+As a real dataset, we consider the [TEMPO-TL](https://arxiv.org/abs/1809.01337v1) dataset that similarly stitches together a pair of events in text for clips in the same video.
+
+![TEMPO-TL data](media/tempo-data-v1.gif)
 
 TODO
 
