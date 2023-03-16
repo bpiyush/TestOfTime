@@ -67,6 +67,10 @@ TODO
     ```
     Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 66% accuracy.
 
+
+The detailed results on more datasets are provided in the paper and also shown below.
+<img src="media/results-tact-v1.png" width="400">
+
 #### Evaluate on `Synthetic` dataset
 
 * Pre-trained VideoCLIP
@@ -113,6 +117,33 @@ Note that, to run this, you need the pre-computed S3D features for the AGQA data
     python downstream_zeroshot.py --data_root /ssd/pbagad/datasets/ --dataset agqa --task videoqa --no_save -c $ckpt
     ```
     Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 57.1% accuracy.
+
+### Action Retrieval on `SSv2`
+
+Here, we evaluate `Action Retrieval` on a subset of the [`SSv2` dataset](https://developer.qualcomm.com/software/ai-datasets/something-something).
+
+An example instance from the `SSv2` dataset is shown below:
+<img src="media/ssv2-example-v1.jpg" width="600">
+
+Note that, to run this, you need the pre-computed S3D features for the SSv2 dataset.
+
+* Pre-trained VideoCLIP
+    ```sh
+    python downstream_zeroshot.py --data_root /ssd/pbagad/datasets/ --dataset ssv2 --task action_retrieval --no_save --split "validation-tmpl-ret-singularity"
+    ```
+    Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 3.4% mAP (`metric_t2v_mAP`).
+
+* TACT post-pretrained VideoCLIP
+    ```sh
+    ckpt=/path/to/tact/checkpoint/trained/on/TEMPO/
+    # For example, ckpt=test-of-time/1arb5f3m/checkpoints/epoch=27-step=8288.ckpt
+    python downstream_zeroshot.py --data_root /ssd/pbagad/datasets/ --dataset ssv2 --task action_retrieval  --no_save --split "validation-tmpl-ret-singularity" -c $ckpt 
+    ```
+    Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 4.2% mAP (`metric_t2v_mAP`).
+
+
+The detailed results on more datasets/tasks are provided in the paper and also shown below.
+<img src="media/results-downstream-v1.png" width="800">
 
 ## Citation
 

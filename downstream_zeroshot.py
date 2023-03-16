@@ -29,8 +29,8 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--task", type=str, default="videoqa",
-        help="Task to be evaluated upon name. Currently, only supports videoqa.",
-        choices=["videoqa"],
+        help="Task to be evaluated upon name.",
+        choices=["videoqa", "action_retrieval"],
     )
     parser.add_argument(
         "-c", "--ckpt_path", type=str,
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--dataset", type=str, default="agqa",
-        help="Dataset name. Currently only supports agqa.", choices=["agqa"],
+        choices=["agqa", "ssv2"], help="Dataset name.",
     )
     parser.add_argument(
         "--split", type=str, default=None, help="split",
@@ -74,16 +74,19 @@ if __name__ == "__main__":
     additional_args = dict()
 
 
+    data_root = args.data_root
     if args.dataset == "agqa":
         from package.datasets.agqa import AGQATemporal
-        data_root = args.data_root
-        # video_dir = join(data_root, "Charades/Charades_v1_480/")
-        # vfeat_dir = join(data_root, "Charades/feat/feat_how2_s3d")
         if args.split is None:
             args.split = "test_unbalanced_subset-temporal-v1.0"
         split_file = f"AGQA/splits/{args.split}.csv"
         dataset = AGQATemporal(data_root=data_root, split_file=split_file)
         additional_args.update(dict(num_answer_candidates=2, log_csv=False))
+    elif args.dataset == "ssv2":
+        from package.datasets.ssv2 import SSv2
+        assert args.split in ["validation", "validation_2k", "validation-tmpl-ret-singularity"]
+        split_file = f"something-something-v2-{args.split}.json"
+        dataset = SSv2(data_root=data_root, split_file=split_file)
     else:
         raise ValueError("Invalid dataset")
     
@@ -121,6 +124,13 @@ if __name__ == "__main__":
                 "But you are using it on {}".format(args.dataset)
         from package.evaluators.videoclip_videoqa_mcq import VideoQAMCQ
         evaluator = VideoQAMCQ(config, model, **additional_args)
+    
+    elif args.task == "action_retrieval":
+        assert args.dataset in ["ssv2", "temporal"], \
+            "You can only use action retrieval on SSv2 or Temporal."\
+                "But you are using it on {}".format(args.dataset)
+        from package.evaluators.videoclip_action_retrieval import VideoActionRetrieval
+        evaluator = VideoActionRetrieval(config, model, **additional_args)
 
     else:
         raise ValueError("Invalid task")
