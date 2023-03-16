@@ -31,7 +31,7 @@ class VideoCLIP(pl.LightningModule):
         self.alpha_cross = config.get("alpha_cross", 1.0)
         self.beta = config.get("beta", 1.0)
         
-        batch_size = config.batch_size
+        batch_size = config.get("batch_size", 32)
         sample_weights = torch.ones(2 * batch_size, device=self.device)
         sample_weights[batch_size // 2:] *= self.beta
 

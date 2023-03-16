@@ -5,6 +5,7 @@
 # Wandb logging
 wandb/
 checkpoints/
+lightning_logs/
 
 
 # Byte-compiled / optimized / DLL files

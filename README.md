@@ -85,7 +85,34 @@ TODO
 
 
 ## Evaluation: Downstream Tasks
-TODO
+
+
+To illustrate zero-shot performance of our TACT adapted model on a downstream task, we provide code to run the following evaluations.
+
+### Video Question Answering on `AGQA`
+
+Here, we evaluate `VideoQA` on a subset of the [`AGQA` dataset](https://ai.stanford.edu/blog/agqa/).
+
+An example instance from the `AGQA` dataset is shown below:
+<!-- ![AGQA data](media/agqa-sample-v2.jpg) -->
+<img src="media/agqa-sample-v2.jpg"  width="600">
+
+
+Note that, to run this, you need the pre-computed S3D features for the AGQA dataset.
+
+* Pre-trained VideoCLIP
+    ```sh
+    python downstream_zeroshot.py --data_root /ssd/pbagad/datasets/ --dataset agqa --task videoqa --no_save
+    ```
+    Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 49.9% accuracy.
+
+* TACT post-pretrained VideoCLIP
+    ```sh
+    ckpt=/path/to/tact/checkpoint/trained/on/TEMPO/
+    # For example, ckpt=test-of-time/1arb5f3m/checkpoints/epoch=27-step=8288.ckpt
+    python downstream_zeroshot.py --data_root /ssd/pbagad/datasets/ --dataset agqa --task videoqa --no_save -c $ckpt
+    ```
+    Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 57.1% accuracy.
 
 ## Citation
 
