@@ -6,19 +6,19 @@ TODO: Add a teaser video/gif/image here.
 
 ## Table of Contents
 
-* [Brief Overview](#brief-overview)
-* [Updates](#updates)
-* [Installation & Setup](#installation--setup)
-* [Datasets](#datasets)
-* [Models](#models)
-* [Post-pretraining: TACT](#post-pretraining-tact)
-* [Evaluation: TACT](#evaluation-tact)
-* [Evaluation: Downstream Tasks](#evaluation-downstream-tasks)
-* [Citation](#citation)
-* [Acknowledgements](#acknowledgements)
+* [Brief Overview](#🔭-brief-overview)
+* [Updates](#📅-updates)
+* [Installation & Setup](#🚀-installation--setup)
+* [Datasets](#📚-datasets)
+* [Models](#🤖-models)
+* [Post-pretraining: TACT](#🏋️‍♀️-post-pretraining-tact)
+* [Evaluation: TACT](#📊-evaluation-tact)
+* [Evaluation: Downstream Tasks](#📊-evaluation-downstream-tasks)
+* [Citation](#📖-citation)
+* [Acknowledgements](#🙏-acknowledgements)
 
 
-## Brief Overview
+## 🔭 Brief Overview
 
 * We show that existing video-language models struggle to associate time order in video and language through a controlled experiment on [synthetic data](#synthetic-data).
 * Based on [VideoCLIP](https://arxiv.org/abs/2109.14084), we propose TACT (<u>T</u>emporal <u>A</u>daptation by <u>C</u>onsistent <u>T</u>ime-ordering), a method for temporal adaptation
@@ -26,17 +26,17 @@ using this time order consistency without having to pretrain from scratch.
 * We demonstrate improved zeroshot generalizability of our temporally adapted models on tasks that require higher time awareness.
 
 
-## Updates
+## 📅 Updates
 
 * 24th March 2023: Code released.
 
 
-## Installation & Setup
+## 🚀 Installation & Setup
 
 Create a `conda` environment and install packages as described in [`setup/env.md`](setup/env.md). We recommend running `python setup/check_packages.py` to check if all packages are installed correctly.
 
 
-## Datasets
+## 📚 Datasets
 
 We use a combination of synthetic and real datasets to evaluate our approach. Below, you can find instructions to download and prepare the datasets. Here, we present instructions for our Synthetic dataset and the [TEMPO-TL](https://arxiv.org/abs/1809.01337v1) dataset.
 
@@ -70,7 +70,7 @@ As a real dataset, we consider the [TEMPO-TL](https://arxiv.org/abs/1809.01337v1
 
 **New datasets**: In order to evaluate our approach on other (new) datasets, you need to first generate and save S3D video features. See [this](https://github.com/facebookresearch/fairseq/tree/main/examples/MMPT/scripts/video_feature_extractor) for an open-source feature extractor. Then, create splits, create a dataset object in `package/datasets/`. Please see `package/datasets/tempo.py` for reference.
 
-## Models
+## 🤖 Models
 
 We base our experiments on the VideoCLIP model from FAIR. Instructions in [`setup/env.md`](setup/env.md) include download of relevant checkpoints for VideoCLIP.
 
@@ -92,7 +92,7 @@ bash setup/download_checkpoints.sh /path/to/checkpoints/
 ```
 Pass the path to folder where you want to store the checkpoints (e.g., `./all_checkpoints/`).
 
-## Post-pretraining: TACT
+## 🏋️‍♀️ Post-pretraining: TACT
 
 * Post-pretraining on TEMPO-TL dataset
     ```sh
@@ -100,7 +100,7 @@ Pass the path to folder where you want to store the checkpoints (e.g., `./all_ch
     ```
     Replace `--data_root` with the path to where all your dataseta are stored. Make sure to change `entity` and `project` arguments in [`postpretrain.py`](postpretrain.py) to log to your own wandb account.
 
-## Evaluation: TACT
+## 📊 Evaluation: TACT
 
 #### Evaluate on `TEMPO` dataset
 
@@ -141,7 +141,7 @@ The detailed results on more datasets are provided in the paper and also shown b
     Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 78% accuracy.
 
 
-## Evaluation: Downstream Tasks
+## 📊 Evaluation: Downstream Tasks
 
 
 To illustrate zero-shot performance of our TACT adapted model on a downstream task, we provide code to run the following evaluations.
@@ -204,7 +204,7 @@ The detailed results on more datasets/tasks are provided in the paper and also s
 <img src="media/results-downstream-v1.png" width="800">
 </p>
 
-## Citation
+## 📖 Citation
 
 If you found our work useful or relevant, please consider citing our paper:
 
@@ -218,7 +218,7 @@ If you found our work useful or relevant, please consider citing our paper:
 }
 ```
 
-## Acknowledgements
+## 🙏 Acknowledgements
 
 - We acknowledge support from the [ELLIS Amsterdam Unit](https://ivi.fnwi.uva.nl/ellis/) and the [AMS Scholarhsip](https://www.uva.nl/en/education/fees-and-funding/masters-scholarships-and-loans/faculty-scholarships-science/science.html) to Piyush as a Master's student.
 - We also thank [Dr. Dennis Koelma](https://staff.fnwi.uva.nl/d.c.koelma/) for regular help with compute infrastructure and hosting of data and models.
@@ -227,3 +227,5 @@ If you found our work useful or relevant, please consider citing our paper:
 ### Additional Notes
 
 > :warning: **Infra note**: Our code has been run on a single node with 4 GPUs (either NVIDIA RTX A5000 or NVIDIA GeForce 1080). Running it on different infrastructures may cause differences in results. However, the trends and inferences should be similar (e.g., post-pretraining helps with temporal ordering task, etc.).
+
+> 💡: If you have any issues or suggestions, feel free to open an issue or contact us via email.
