@@ -2,44 +2,95 @@
 
 Code for our CVPR 2023 [paper](https://arxiv.org/abs/2301.02074) on instilling a sense of time in video-language models.
 
+TODO: Add a teaser video/gif/image here.
+
+## Table of Contents
+
+* [Brief Overview](#brief-overview)
+* [Updates](#updates)
+* [Installation & Setup](#installation--setup)
+* [Datasets](#datasets)
+* [Models](#models)
+* [Post-pretraining: TACT](#post-pretraining-tact)
+* [Evaluation: TACT](#evaluation-tact)
+* [Evaluation: Downstream Tasks](#evaluation-downstream-tasks)
+* [Citation](#citation)
+* [Acknowledgements](#acknowledgements)
+
+
+## Brief Overview
+
+* We show that existing video-language models struggle to associate time order in video and language through a controlled experiment on [synthetic data](#synthetic-data).
+* Based on [VideoCLIP](https://arxiv.org/abs/2109.14084), we propose TACT (<u>T</u>emporal <u>A</u>daptation by <u>C</u>onsistent <u>T</u>ime-ordering), a method for temporal adaptation
+using this time order consistency without having to pretrain from scratch.
+* We demonstrate improved zeroshot generalizability of our temporally adapted models on tasks that require higher time awareness.
+
+
+## Updates
+
+* 24th March 2023: Code released.
+
+
 ## Installation & Setup
 
-Create a `conda` environment and install packages as described in [`setup/env.md`](setup/env.md).
+Create a `conda` environment and install packages as described in [`setup/env.md`](setup/env.md). We recommend running `python setup/check_packages.py` to check if all packages are installed correctly.
 
-## Overview
-
-We present <u>T</u>emporal <u>A</u>daptation by <u>C</u>onsistent <u>T</u>ime-ordering (TACT) as a way of making video-language models understand before/after relations in text and connecting them with pair of events in a video stream.
 
 ## Datasets
 
 We use a combination of synthetic and real datasets to evaluate our approach. Below, you can find instructions to download and prepare the datasets. Here, we present instructions for our Synthetic dataset and the [TEMPO-TL](https://arxiv.org/abs/1809.01337v1) dataset.
 
+For each dataset, we provide a `.zip` file that contains (i) train-test splits, (ii) S3D features for video (at 1 FPS) that serve as input to VideoCLIP model. Use the following to download all datasets:
+
+```sh
+bash setup/download_datasets.sh /path/to/datasets/
+```
+Pass the path to folder where you want to store the datasets (e.g., `./all_data/`).
+
+
 ### Synthetic data
 
 We create simple synthetic video-language pairs by stitching together a pair of events (e.g., "a <span style="color:red">red</span> circle appears" and "a <span style="color:yellow">yellow</span> circle appears") with text description connected by *before/after* relations. An example is shown here:
 
-![Synthetic data](media/synthetic-data-v3.gif)
+<!-- ![Synthetic data](media/synthetic-data-v3.gif) -->
+<p align="center">
+<img src="media/synthetic-data-v3.gif" width="600">
+</p>
 
-TODO: Add instructions to download.
 
 ### TEMPO-TL dataset
 
 As a real dataset, we consider the [TEMPO-TL](https://arxiv.org/abs/1809.01337v1) dataset that similarly stitches together a pair of events in text for clips in the same video.
 
-![TEMPO-TL data](media/tempo-data-v1.gif)
+<!-- ![TEMPO-TL data](media/tempo-data-v1.gif) -->
+<p align="center">
+<img src="media/tempo-data-v1.gif" width="600">
+</p>
 
-TODO
 
-### Other datasets
-
-In order to evaluate our approach on other datasets, you need to first generate and save S3D video features. Then, create splits, create a dataset object in `package/datasets/`. Please see `package/datasets/tempo.py` for reference.
+**New datasets**: In order to evaluate our approach on other (new) datasets, you need to first generate and save S3D video features. See [this](https://github.com/facebookresearch/fairseq/tree/main/examples/MMPT/scripts/video_feature_extractor) for an open-source feature extractor. Then, create splits, create a dataset object in `package/datasets/`. Please see `package/datasets/tempo.py` for reference.
 
 ## Models
 
 We base our experiments on the VideoCLIP model from FAIR. Instructions in [`setup/env.md`](setup/env.md) include download of relevant checkpoints for VideoCLIP.
 
-## Checkpoints
-TODO
+**Checkpoint zoo**: Here, we provide checkpoints for TACT adapted VideoCLIP models post-pretrained on (i) TEMPO-TL, (ii) ActivityNet, (iii) Charades, (iv) Charades-Ego.
+
+| **Post-pretraining Dataset** 	|                        	|   **Hyperparameters**   	|         	| **Download link** 	|
+|------------------------------	|:----------------------:	|:-----------------------:	|:-------:	|:-----------------:	|
+|                              	| $\alpha_{\text{same}}$ 	| $\alpha_{\text{cross}}$ 	| $\beta$ 	|                   	|
+| TEMPO-TL                     	|           1.0          	|           1.0           	|   1.0   	|        [Link](https://isis-data.science.uva.nl/testoftime/checkpoints/tempo-hparams_1.0_1.0_1.0-epoch=27-step=8288.ckpt)       	|
+| ActivityNet                  	|           1.0          	|           1.0           	|   0.0   	|        [Link](https://isis-data.science.uva.nl/testoftime/checkpoints/activitynet-hparams_1.0_1.0_0.0-epoch%3D9-step%3D7450.ckpt)       	|
+| Charades                     	|           1.0          	|           1.0           	|   0.0   	|        [Link](https://isis-data.science.uva.nl/testoftime/checkpoints/charades-hparams_1.0_1.0_0.0-epoch%3D3-step%3D3120.ckpt)       	|
+| Charades-Ego                 	|           1.0          	|           1.0           	|   1.0   	|        [Link](https://isis-data.science.uva.nl/testoftime/checkpoints/charadesego-hparams_1.0_1.0_1.0-epoch%3D2-step%3D3639.ckpt)       	|
+| | | | | |
+
+To download all checkpoints in one go, run:
+
+```sh
+bash setup/download_checkpoints.sh /path/to/checkpoints/
+```
+Pass the path to folder where you want to store the checkpoints (e.g., `./all_checkpoints/`).
 
 ## Post-pretraining: TACT
 
@@ -62,14 +113,16 @@ TODO
 * TACT post-pretrained VideoCLIP
     ```sh
     ckpt=/path/to/tact/checkpoint/trained/on/TEMPO/
-    # For example, ckpt=test-of-time/1arb5f3m/checkpoints/epoch=27-step=8288.ckpt
+    # For example, ckpt=./all_checkpoints/tempo-hparams_1.0_1.0_1.0-epoch=27-step=8288.ckpt
     python postpretrain.py --dataset tempo --eval_subset temporal_1k --eval_split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/ -c $ckpt
     ```
     Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 66% accuracy.
 
 
 The detailed results on more datasets are provided in the paper and also shown below.
+<p align="center">
 <img src="media/results-tact-v1.png" width="400">
+</p>
 
 #### Evaluate on `Synthetic` dataset
 
@@ -82,7 +135,7 @@ The detailed results on more datasets are provided in the paper and also shown b
 * TACT post-pretrained VideoCLIP
     ```sh
     ckpt=/path/to/tact/checkpoint/trained/on/TEMPO/
-    # For example, ckpt=test-of-time/1arb5f3m/checkpoints/epoch=27-step=8288.ckpt
+    # For example, ckpt=./all_checkpoints/tempo-hparams_1.0_1.0_1.0-epoch=27-step=8288.ckpt
     python postpretrain.py --dataset synthetic --eval_subset v2.0 --eval_split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/ -c $ckpt
     ```
     Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 78% accuracy.
@@ -99,7 +152,9 @@ Here, we evaluate `VideoQA` on a subset of the [`AGQA` dataset](https://ai.stanf
 
 An example instance from the `AGQA` dataset is shown below:
 <!-- ![AGQA data](media/agqa-sample-v2.jpg) -->
+<p align="center">
 <img src="media/agqa-sample-v2.jpg"  width="600">
+</p>
 
 
 Note that, to run this, you need the pre-computed S3D features for the AGQA dataset.
@@ -113,7 +168,7 @@ Note that, to run this, you need the pre-computed S3D features for the AGQA data
 * TACT post-pretrained VideoCLIP
     ```sh
     ckpt=/path/to/tact/checkpoint/trained/on/TEMPO/
-    # For example, ckpt=test-of-time/1arb5f3m/checkpoints/epoch=27-step=8288.ckpt
+    # For example, ckpt=./all_checkpoints/tempo-hparams_1.0_1.0_1.0-epoch=27-step=8288.ckpt
     python downstream_zeroshot.py --data_root /ssd/pbagad/datasets/ --dataset agqa --task videoqa --no_save -c $ckpt
     ```
     Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 57.1% accuracy.
@@ -123,7 +178,9 @@ Note that, to run this, you need the pre-computed S3D features for the AGQA data
 Here, we evaluate `Action Retrieval` on a subset of the [`SSv2` dataset](https://developer.qualcomm.com/software/ai-datasets/something-something).
 
 An example instance from the `SSv2` dataset is shown below:
+<p align="center">
 <img src="media/ssv2-example-v1.jpg" width="600">
+</p>
 
 Note that, to run this, you need the pre-computed S3D features for the SSv2 dataset.
 
@@ -136,14 +193,16 @@ Note that, to run this, you need the pre-computed S3D features for the SSv2 data
 * TACT post-pretrained VideoCLIP
     ```sh
     ckpt=/path/to/tact/checkpoint/trained/on/TEMPO/
-    # For example, ckpt=test-of-time/1arb5f3m/checkpoints/epoch=27-step=8288.ckpt
+    # For example, ckpt=./all_checkpoints/tempo-hparams_1.0_1.0_1.0-epoch=27-step=8288.ckpt
     python downstream_zeroshot.py --data_root /ssd/pbagad/datasets/ --dataset ssv2 --task action_retrieval  --no_save --split "validation-tmpl-ret-singularity" -c $ckpt 
     ```
     Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 4.2% mAP (`metric_t2v_mAP`).
 
 
 The detailed results on more datasets/tasks are provided in the paper and also shown below.
+<p align="center">
 <img src="media/results-downstream-v1.png" width="800">
+</p>
 
 ## Citation
 
@@ -161,8 +220,9 @@ If you found our work useful or relevant, please consider citing our paper:
 
 ## Acknowledgements
 
-We acknowledge support from the [ELLIS Amsterdam Unit](https://ivi.fnwi.uva.nl/ellis/) and the [AMS Scholarhsip](https://www.uva.nl/en/education/fees-and-funding/masters-scholarships-and-loans/faculty-scholarships-science/science.html) to Piyush as a Master's student.
-We also acknowledge all relevent prior work, particularly, [VideoCLIP](https://arxiv.org/abs/2109.14084) and [TEMPO](https://arxiv.org/abs/1809.01337v1), for making their code and data publicly available.
+- We acknowledge support from the [ELLIS Amsterdam Unit](https://ivi.fnwi.uva.nl/ellis/) and the [AMS Scholarhsip](https://www.uva.nl/en/education/fees-and-funding/masters-scholarships-and-loans/faculty-scholarships-science/science.html) to Piyush as a Master's student.
+- We also thank [Dr. Dennis Koelma](https://staff.fnwi.uva.nl/d.c.koelma/) for regular help with compute infrastructure and hosting of data and models.
+- We also acknowledge all relevent prior work, particularly, [VideoCLIP](https://arxiv.org/abs/2109.14084) and [TEMPO](https://arxiv.org/abs/1809.01337v1), for making their code and data publicly available.
 
 ### Additional Notes
 
