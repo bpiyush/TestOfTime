@@ -20,15 +20,15 @@ Code for our CVPR 2023 [paper](https://arxiv.org/abs/2301.02074) on instilling a
 ## Table of Contents
 
 * [Brief Overview](#🔭-brief-overview)
-* [Updates](#📅-updates)
-* [Installation & Setup](#🚀-installation--setup)
-* [Datasets](#📚-datasets)
+* [Updates](#-updates)
+* [Installation & Setup](#-installation--setup)
+* [Datasets](#-datasets)
 * [Models](#🤖-models)
-* [Post-pretraining: TACT](#🏋️‍♀️-post-pretraining-tact)
-* [Evaluation: TACT](#📊-evaluation-tact)
-* [Evaluation: Downstream Tasks](#📊-evaluation-downstream-tasks)
-* [Citation](#📖-citation)
-* [Acknowledgements](#🙏-acknowledgements)
+* [Post-pretraining: TACT](#-post-pretraining-tact)
+* [Evaluation: TACT](#-evaluation-tact)
+* [Evaluation: Downstream Tasks](#-evaluation-downstream-tasks)
+* [Citation](#-citation)
+* [Acknowledgements](#-acknowledgements)
 
 
 ## 🔭 Brief Overview
