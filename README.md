@@ -12,7 +12,7 @@ Code for our CVPR 2023 [paper](https://arxiv.org/abs/2301.02074) on instilling a
 <p>
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/19412343/225776400-0abb7dad-320f-497f-b578-22efc86a59d5.gif" width="800">
+<img src="https://user-images.githubusercontent.com/19412343/225776400-0abb7dad-320f-497f-b578-22efc86a59d5.gif" width="600">
 </p>
 
 
@@ -67,7 +67,7 @@ We create simple synthetic video-language pairs by stitching together a pair of 
 
 <!-- ![Synthetic data](media/synthetic-data-v3.gif) -->
 <p align="center">
-<img src="media/synthetic-data-v3.gif" width="600">
+<img src="media/synthetic-data-v3.gif" width="500">
 </p>
 
 
@@ -77,7 +77,7 @@ As a real dataset, we consider the [TEMPO-TL](https://arxiv.org/abs/1809.01337v1
 
 <!-- ![TEMPO-TL data](media/tempo-data-v1.gif) -->
 <p align="center">
-<img src="media/tempo-data-v1.gif" width="600">
+<img src="media/tempo-data-v1.gif" width="500">
 </p>
 
 
@@ -96,7 +96,6 @@ We base our experiments on the VideoCLIP model from FAIR. Instructions in [`setu
 | ActivityNet                  	|           1.0          	|           1.0           	|   0.0   	|        [Link](https://isis-data.science.uva.nl/testoftime/checkpoints/activitynet-hparams_1.0_1.0_0.0-epoch%3D9-step%3D7450.ckpt)       	|
 | Charades                     	|           1.0          	|           1.0           	|   0.0   	|        [Link](https://isis-data.science.uva.nl/testoftime/checkpoints/charades-hparams_1.0_1.0_0.0-epoch%3D3-step%3D3120.ckpt)       	|
 | Charades-Ego                 	|           1.0          	|           1.0           	|   1.0   	|        [Link](https://isis-data.science.uva.nl/testoftime/checkpoints/charadesego-hparams_1.0_1.0_1.0-epoch%3D2-step%3D3639.ckpt)       	|
-| | | | | |
 
 To download all checkpoints in one go, run:
 
