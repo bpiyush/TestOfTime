@@ -138,19 +138,22 @@ The detailed results on more datasets are provided in the paper and also shown b
 
 #### Evaluate on `Synthetic` dataset
 
-* Pre-trained VideoCLIP
-    ```sh
-    python postpretrain.py --dataset synthetic --eval_subset v2.0 --eval_split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/
-    ```
-    Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 45% accuracy.
-
-* TACT post-pretrained VideoCLIP
+* TACT post-pretrained (on TEMPO)
     ```sh
     ckpt=/path/to/tact/checkpoint/trained/on/TEMPO/
     # For example, ckpt=./all_checkpoints/tempo-hparams_1.0_1.0_1.0-epoch=27-step=8288.ckpt
-    python postpretrain.py --dataset synthetic --eval_subset v2.0 --eval_split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/ -c $ckpt
+    python postpretrain.py --dataset synthetic --eval_subset v2.0 --eval_split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/ -c $ckpt --gpus 0
     ```
-    Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 78% accuracy.
+    Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 65% accuracy.
+    Note that since this is tiny evaluation set, using multiple GPUs will lead to incorrect accuracies because of  aggregating results across GPUs.
+
+* TACT post-pretrained (on Charades-Ego)
+    ```sh
+    ckpt=/path/to/tact/checkpoint/trained/on/Charades-Ego/
+    # For example, ckpt=./all_checkpoints/charadesego-hparams_1.0_1.0_1.0-epoch\=2-step\=3639.ckpt
+    python postpretrain.py --dataset synthetic --eval_subset v2.0 --eval_split test --only_eval --no_wandb --data_root /ssd/pbagad/datasets/ -c $ckpt --gpus 0
+    ```
+    Replace `--data_root` with the path to where all your dataseta are stored. This should yield about 85% accuracy.
 
 
 ## 📊 Evaluation: Downstream Tasks
