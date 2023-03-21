@@ -241,3 +241,9 @@ If you found our work useful or relevant, please consider citing our paper:
 > :warning: **Infra note**: Our code has been run on a single node with 4 GPUs (either NVIDIA RTX A5000 or NVIDIA GeForce 1080). Running it on different infrastructures may cause differences in results. However, the trends and inferences should be similar (e.g., post-pretraining helps with temporal ordering task, etc.).
 
 > 💡: If you have any issues or suggestions, feel free to open an issue or contact us via email.
+
+### Closely Related Work
+
+Please also consider looking at the following related papers:
+
+* Wu et al, [Audio-Text Models Do Not Yet Leverage Natural Language](https://arxiv.org/abs/2303.10667). Like us, they too check if models capture event ordering, albeit for audio-text models.
