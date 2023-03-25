@@ -236,7 +236,7 @@ If you found our work useful or relevant, please consider citing our paper:
 ## 🙏 Acknowledgements
 
 - We acknowledge support from the [ELLIS Amsterdam Unit](https://ivi.fnwi.uva.nl/ellis/) and the [AMS Scholarhsip](https://www.uva.nl/en/education/fees-and-funding/masters-scholarships-and-loans/faculty-scholarships-science/science.html) to Piyush as a Master's student.
-- We also thank [Dr. Dennis Koelma](https://staff.fnwi.uva.nl/d.c.koelma/) for regular help with compute infrastructure and hosting of data and models.
+- We also thank [Dr. Dennis Koelma](https://staff.fnwi.uva.nl/d.c.koelma/) for regular help with compute infrastructure and hosting of data and models, and, we thank [Dr. Hazel Doughty](https://hazeldoughty.github.io/) for useful discussions.
 - We also acknowledge all relevent prior work, particularly, [VideoCLIP](https://arxiv.org/abs/2109.14084) and [TEMPO](https://arxiv.org/abs/1809.01337v1), for making their code and data publicly available.
 
 ### Additional Notes
