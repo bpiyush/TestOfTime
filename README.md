@@ -11,8 +11,12 @@ Code for our CVPR 2023 [paper](https://arxiv.org/abs/2301.02074) on instilling a
     <a href="#"> [CVPR 2023 Poster] (⌛)</a>
 <p>
 
-<p align="center">
+<!-- <p align="center">
 <img src="https://user-images.githubusercontent.com/19412343/225776400-0abb7dad-320f-497f-b578-22efc86a59d5.gif" width="600">
+</p> -->
+
+<p align="center">
+<img src="media/tact-slow.gif" width="600">
 </p>
 
 
