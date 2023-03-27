@@ -250,3 +250,5 @@ If you found our work useful or relevant, please consider citing our paper:
 Please also consider looking at the following related papers:
 
 * Wu et al, [Audio-Text Models Do Not Yet Leverage Natural Language](https://arxiv.org/abs/2303.10667). Like us, they too check if models capture event ordering, albeit for audio-text models.
+* Yuksekgonul et al, [When and why vision-language models behave like bags-of-words, and what to do about it?](https://arxiv.org/abs/2210.01936), ICLR 2023. They test image-language models for understanding of object propertries, relational understanding and order sensitivity.
+
