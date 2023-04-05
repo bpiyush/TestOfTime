@@ -3,12 +3,12 @@
 Code for our CVPR 2023 [paper](https://arxiv.org/abs/2301.02074) on instilling a sense of time in video-language models.
 
 <p align="center">
-    <a href="https://bpiyush.github.io/testoftime-website/">[`Project Page`]</a> &nbsp; | &nbsp;
-    <a href="https://arxiv.org/abs/2301.02074">[`Arxiv`]</a> &nbsp; | &nbsp;
-    <a href="#📚-datasets">[`Data`]</a> &nbsp; | &nbsp;
-    <a href="https://github.com/bpiyush/TestOfTime"> [`Code`]</a> &nbsp; | &nbsp;
-    <a href="#"> [`Video`] (⌛)</a> &nbsp; | &nbsp;
-    <a href="#"> [`CVPR 2023 Poster`] (⌛)</a>
+    <a href="https://bpiyush.github.io/testoftime-website/">[Project Page]</a> &nbsp; | &nbsp;
+    <a href="https://arxiv.org/abs/2301.02074">[Arxiv]</a> &nbsp; | &nbsp;
+    <a href="#📚-datasets">[Data]</a> &nbsp; | &nbsp;
+    <a href="https://github.com/bpiyush/TestOfTime"> [Code]</a> &nbsp; | &nbsp;
+    <a href="#"> [Video] (⌛)</a> &nbsp; | &nbsp;
+    <a href="#"> [CVPR 2023 Poster] (⌛)</a>
 <p>
 
 <!-- <p align="center">
