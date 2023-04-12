@@ -256,4 +256,5 @@ Please also consider looking at the following related papers:
 * Wu et al, [Audio-Text Models Do Not Yet Leverage Natural Language](https://arxiv.org/abs/2303.10667). Like us, they too check if models capture event ordering, albeit for audio-text models.
 * Yuksekgonul et al, [When and why vision-language models behave like bags-of-words, and what to do about it?](https://arxiv.org/abs/2210.01936), ICLR 2023. They test image-language models for understanding of object propertries, relational understanding and order sensitivity.
 * Hazra et al, [EgoTV : Egocentric Task Verification from Natural Language Task Descriptions](https://arxiv.org/abs/2303.16975), ArXiv 2023. They propose a synthetic benchmark of procedural tasks where there is an order between the subtasks, e.g., `apple is heated, then, it is cleaned`. 
+* Xu et al, [Don’t Pour Cereal into Coffee: Differentiable Temporal Logic for Temporal Action Segmentation](https://proceedings.neurips.cc/paper_files/paper/2022/file/5f96a21345c138da929e99871fda138e-Paper-Conference.pdf), NeurIPS 2022. They propose use of  temporal logic to apply declarative temporal constraints to the output of deep networks.
 
