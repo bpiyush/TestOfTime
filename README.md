@@ -7,8 +7,8 @@ Code for our CVPR 2023 [paper](https://arxiv.org/abs/2301.02074) on instilling a
     <a href="https://arxiv.org/abs/2301.02074">[Arxiv]</a> &nbsp; | &nbsp;
     <a href="#📚-datasets">[Data]</a> &nbsp; | &nbsp;
     <a href="https://github.com/bpiyush/TestOfTime"> [Code]</a> &nbsp; | &nbsp;
-    <a href="#"> [Video] (⌛)</a> &nbsp; | &nbsp;
-    <a href="#"> [CVPR 2023 Poster] (⌛)</a>
+    <a href="https://www.youtube.com/watch?v=RTRRdrA5H88"> [CVPR 2023 Video]</a> &nbsp; | &nbsp;
+    <a href="https://bpiyush.github.io/testoftime-website/media/testoftime-v1.2-3.pdf"> [CVPR 2023 Poster]</a>
 <p>
 
 <!-- <p align="center">
