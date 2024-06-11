@@ -46,7 +46,7 @@ using this time order consistency without having to pretrain from scratch.
 ## 📅 Updates
 
 * 24th March 2023: Code released.
-
+* 11th June 2024: On our synthetic benchmark, [Video-LLAMA](https://github.com/DAMO-NLP-SG/Video-LLaMA) achieves an impressive 88.33% accuracy. We will continue to add evaluation of more recent LLM models on our synthetic benchmark. 
 
 ## 🚀 Installation & Setup
 
